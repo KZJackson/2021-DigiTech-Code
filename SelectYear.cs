@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SelectYear : MonoBehaviour
-{   //This was my original method, using buttons, for the player to select their year level
-    // I have since changed to using an input field to meet the assessment standard
+{   
     public int YearLevel;
     
 
