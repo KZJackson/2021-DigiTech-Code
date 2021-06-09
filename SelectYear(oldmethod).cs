@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class SelectYear : MonoBehaviour
 {   
+    // This was my old method for year selection
+    //I had to change it to comply with the marking criteria
+    //The new version can be found under SelectYear(newmethod) in the repository
+    
+    
     public int YearLevel;
     
 
