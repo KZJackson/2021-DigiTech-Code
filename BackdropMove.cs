@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// second comment
+
 public class BackdropMove : MonoBehaviour
 { 
     public Vector2 NewPos;
