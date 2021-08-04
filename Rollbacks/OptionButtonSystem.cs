@@ -14,6 +14,7 @@ public class OptionButtonSystem : MonoBehaviour
     public int RandomValue;
     public bool HoldsCorrectAnswer;
     public bool HoldsSelectedAnswer;
+    public bool ShouldResetValue;
 
     public void PickAnswer()
     {
@@ -61,13 +62,14 @@ public class OptionButtonSystem : MonoBehaviour
             AssignValue();
             
         }
-        for (int i = 0; i < Buttons.Length; i++)
-        {
-            if(ThisOptionValue == Buttons[i].GetComponent<OptionButtonSystem>().ThisOptionValue && Indicator != i)
-            {
-                AssignValue();
-            }
-        }
+        //for (int i = 0; i < Buttons.Length; i++)
+        //{
+        //    if(ThisOptionValue == Buttons[i].GetComponent<OptionButtonSystem>().ThisOptionValue && Indicator != i)
+        //    {
+        //        AssignValue();
+        //    }
+        //}
+        // Above code calling assignvalue causes overflow, try putting into separate function?
         
         ThisButtonText.text = ThisOptionValue.ToString();
     }
@@ -84,9 +86,6 @@ public class OptionButtonSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        if(ThisButtonText.text == "000000")
-        {
-            AssignValue();
-        }
+        
     }
 }

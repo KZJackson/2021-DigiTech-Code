@@ -10,6 +10,8 @@ public class SubmitAnswer : MonoBehaviour
     public GameObject RightAnswerMessage;
     public GameObject WrongAnswerMessage;
     public bool IsAnswerCorrect;
+    public int NumRightAnswers;
+    public int NumWrongAnswers;
 
 
     public void SubmitSelection()
@@ -21,10 +23,7 @@ public class SubmitAnswer : MonoBehaviour
            OptionButtonSystem.Buttons[i].GetComponent<Button>().interactable = false;
         }
 
-        if(QuestionSystem.SelectedAnswer == 100000)
-        {
-            
-        }
+        
 
         if(QuestionSystem.SelectedAnswer == QuestionSystem.CorrectAnswer)
         {
@@ -37,6 +36,7 @@ public class SubmitAnswer : MonoBehaviour
                     OptionButtonSystem.Buttons[i].GetComponent<Image>().color = new Color32(0, 217, 0, 255);
                 }
             }
+            NumRightAnswers++;
         }
         else
         {
@@ -53,6 +53,7 @@ public class SubmitAnswer : MonoBehaviour
                     OptionButtonSystem.Buttons[i].GetComponent<Image>().color = new Color32(217, 0, 0, 255);
                 }
             }
+            NumWrongAnswers++;
         }
 
         GameObject.Find("OkButton").GetComponent<Transform>().position = transform.position;

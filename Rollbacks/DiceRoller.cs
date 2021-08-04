@@ -12,6 +12,9 @@ public class DiceRoller : MonoBehaviour
     public VideoPlayer VideoPlayer; //Reference to the VideoPlayer Object
     public GameObject RollDiceButton; //Reference to a button in the scene
     public GameObject OkReturnButton; //Reference to a button in the scene
+    public RawImage VideoObject;
+    public RenderTexture BlankTexture;
+    public RenderTexture VideoTexture;
     public TMP_Text RollDisplay; //Reference to a text object in the scene
     public Vector2 CenterPos; //A coordinate set for the center position on the canvas
     public Vector2 OffScreenPos; //A coordinate set for a position off of the canvas
@@ -19,41 +22,65 @@ public class DiceRoller : MonoBehaviour
     public int NumberRolled; //A variable to contain the number that was rolled
     public bool ShouldMove; //A bool to tell other script/s when to move a token
     
-    //Hides the Dice Roll screen
+    
+    //Hides and resets the Dice Roll screen
     public void HideScreen(){
         VideoPlayer.GetComponent<RectTransform>().localPosition = OffScreenPos;
         VideoPlayer.Stop();
         VideoPlayer.frame = 0;
         ShouldMove = true;
+        RollDisplay.text = "";
+        OkReturnButton.GetComponent<RectTransform>().localPosition = OffScreenPos;
+        VideoObject.texture = BlankTexture;
+
     }
 
 
     public void OpenDiceRollScreen(){
-        transform.position = CenterPos;
+        GetComponent<RectTransform>().localPosition = CenterPos;
         RollDiceButton.GetComponent<RectTransform>().localPosition = CenterPos;
     }
     
     //A coroutine to delay the rest of the code for three seconds while the animation finishes
     IEnumerator WaitTimer()
     {
-        yield return new WaitForSeconds(4);
-        Debug.Log("Timer Complete");
-        if(NumberRolled == 8 || NumberRolled == 11)
+        if(GameObject.Find("Bot").GetComponent<BotController>().BotTurn == false)
         {
-            RollDisplay.text = "You rolled an " + NumberRolled;
+            yield return new WaitForSeconds(4);
+            Debug.Log("Timer Complete");
+            if(NumberRolled == 8 || NumberRolled == 11)
+            {
+                RollDisplay.text = "You rolled an " + NumberRolled;
+            }
+            else
+            {
+                RollDisplay.text = "You rolled a " + NumberRolled;
+            }
+            Debug.Log("Roll Combination was " + RollCombination + ". Number rolled was " + NumberRolled);
+            OkReturnButton.GetComponent<RectTransform>().localPosition = new Vector2(265, -180);
         }
-        else
+        if(GameObject.Find("Bot").GetComponent<BotController>().BotTurn == true)
         {
-            RollDisplay.text = "You rolled a " + NumberRolled;
+            yield return new WaitForSeconds(4);
+            Debug.Log("Timer Complete");
+            if(NumberRolled == 8 || NumberRolled == 11)
+            {
+                RollDisplay.text = "Enemy rolled an " + NumberRolled;
+            }
+            else
+            {
+                RollDisplay.text = "Enemy rolled a " + NumberRolled;
+            }
+            Debug.Log("Roll Combination was " + RollCombination + ". Number rolled was " + NumberRolled);
+            yield return new WaitForSeconds(2);
+            HideScreen();
         }
-        Debug.Log("Roll Combination was " + RollCombination + ". Number rolled was " + NumberRolled);
-        OkReturnButton.GetComponent<RectTransform>().localPosition = new Vector2(265, -180);
 
     }
 
     //The function to 'roll the dice'
     //Called when the roll dice button is clicked
-    /*Decides randomly which animation to play, then figures out which number that animation displays
+    /*Decides randomly which animation to play, then figures out which number that animation represents
     and displays that number with text on the screen*/
 
     public void RollDice(){
@@ -117,9 +144,11 @@ public class DiceRoller : MonoBehaviour
         {
             NumberRolled = 12;
         }
-
+        
         VideoPlayer.Play();
         StartCoroutine(WaitTimer());
+        VideoObject.texture = VideoTexture;
+        
         
 
 
@@ -138,6 +167,7 @@ public class DiceRoller : MonoBehaviour
         OffScreenPos = new Vector2(0,500);
         OkReturnButton.GetComponent<RectTransform>().localPosition = OffScreenPos;
         RollDiceButton.GetComponent<RectTransform>().localPosition = CenterPos;
+        VideoObject.texture = BlankTexture;
         
     }
 

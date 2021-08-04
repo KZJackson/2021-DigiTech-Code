@@ -10,14 +10,22 @@ public class QuestionSystem : MonoBehaviour
     public OptionButtonSystem OptionButtonSystem;
     public SubmitAnswer SubmitAnswer;
     public TMP_Text TimerText;
-    public GameObject[] Children;
+    public GameObject[] PopupTransformVariable;
     public int CorrectAnswer;
     public int SelectedAnswer = 100000;
     public int[] Terms;
     public int[] OptionValues;
     public int CorrectID;
+    public bool ShouldReset;
+    public bool ShouldTrigger;
     public Coroutine TimerCo;
+    public Vector3 Center;
 
+    public void TriggerQuestionSystem()
+    {
+        GetComponent<RectTransform>().localPosition = Center;
+        GenerateAddition(0,5,2);
+    }
 
     public void GenerateAddition(int Lower, int Upper, int QuestionLength)
     {
@@ -43,7 +51,9 @@ public class QuestionSystem : MonoBehaviour
         OptionValues[CorrectID] = CorrectAnswer;
         for (int i = 0; i < OptionButtonSystem.Buttons.Length; i++)
         {
-           GameObject.Find("Button" + (i+1) + "Text").GetComponent<TextMeshProUGUI>().text = "000000";
+           
+           OptionButtonSystem.Buttons[i].GetComponent<OptionButtonSystem>().AssignValue();
+           
         }
         for (int i = 0; i < OptionButtonSystem.Buttons.Length; i++)
         {
@@ -72,21 +82,47 @@ public class QuestionSystem : MonoBehaviour
     {
         QuestionText.text = "";
         TimerText.text = "";
+        for (int i = 0; i < PopupTransformVariable.Length; i++)
+        {
+            PopupTransformVariable[i].transform.position = PopupTransformVariable[i].GetComponent<OriginalPosition>().originalPosition;
+        }
+        ShouldReset = true;
+        ShouldReset = false;
+        GetComponent<RectTransform>().localPosition = new Vector2(0, -1000);
+        SelectedAnswer = 100000;
+        CorrectAnswer = 0;
+        for (int i = 0; i < OptionButtonSystem.Buttons.Length; i++)
+        {
+            OptionButtonSystem.Buttons[i].GetComponent<Image>().color = new Color32(255,255,255,255);
+        }
+        SelectedAnswer = 100000;
+        StartCoroutine(GameObject.Find("Bot").GetComponent<BotController>().PassTurn());
 
+        
     }
     // Start is called before the first frame update
     void Start()
     {
+        Center = new Vector2(0, 0);
         OptionButtonSystem = GameObject.Find("Option2Button").GetComponent<OptionButtonSystem>();
         SubmitAnswer = GameObject.Find("GoButton").GetComponent<SubmitAnswer>();
-        Children = GameObject.FindGameObjectsWithTag("PopupTransformVariable");
-        GenerateAddition(0, 5, 2);
+        PopupTransformVariable = GameObject.FindGameObjectsWithTag("PopupTransformVariable");
+        for (int i = 0; i < PopupTransformVariable.Length; i++)
+        {
+            PopupTransformVariable[i].AddComponent<OriginalPosition>();
+        }
+        GetComponent<RectTransform>().localPosition = new Vector2(0, -1000);
+        
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(ShouldTrigger == true)
+        {
+            TriggerQuestionSystem();
+            ShouldTrigger = false;
+        }
     }
 }
