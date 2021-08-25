@@ -5,7 +5,7 @@ using UnityEngine.Video;
 using UnityEngine.UI;
 using TMPro;
 
-
+// My second version of this component. I replaced a very extensive process with a much simpler one in determining what number was rolled (in the RollDice function)
 public class DiceRoller : MonoBehaviour
 {
     public VideoClip[] Clips; //Array of dice roll animation clips
@@ -20,7 +20,7 @@ public class DiceRoller : MonoBehaviour
     public Vector2 OffScreenPos; //A coordinate set for a position off of the canvas
     public int RollCombination; //A variable to contain the dice combination number
     public int NumberRolled; //A variable to contain the number that was rolled
-    public int[] Rolls = {2,3,4,5,6,7,3,4,5,6,7,8,4,5,6,7,8,9,5,6,7,8,9,10,6,7,8,9,10,11,7,8,9,10,11,12};
+    public int[] Rolls = {2,3,4,5,6,7,3,4,5,6,7,8,4,5,6,7,8,9,5,6,7,8,9,10,6,7,8,9,10,11,7,8,9,10,11,12}; //All possible roll outcomes in order
     public bool ShouldMove; //A bool to tell other script/s when to move a token
     
     
