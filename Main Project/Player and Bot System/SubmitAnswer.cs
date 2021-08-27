@@ -11,9 +11,14 @@ public class SubmitAnswer : MonoBehaviour
     public QuestionSystem QuestionSystem; // Reference to another script
     public GameObject RightAnswerMessage; //Reference to a text saying you got it right
     public GameObject WrongAnswerMessage; //Reference to a text saying you got it wrong
+    public TextAsset Add;
+    public TextAsset Sub;
+    public TextAsset Mult;
+    public TextAsset Div;
     public bool IsAnswerCorrect;
     public int NumRightAnswers;
     public int NumWrongAnswers;
+    public string Type;
 
 
     //Function to submit the chosen answer
@@ -72,6 +77,23 @@ public class SubmitAnswer : MonoBehaviour
         if(IsAnswerCorrect == false)
         {
             GameObject.Find("SolveBoard").GetComponent<RectTransform>().position = GameObject.Find("Question Board").GetComponent<RectTransform>().position;
+            if(Type == "Add")
+            {
+                GameObject.Find("HelpText").GetComponent<TMPro.TextMeshProUGUI>().text = Add.text;
+            }
+            if(Type == "Sub")
+            {
+                GameObject.Find("HelpText").GetComponent<TMPro.TextMeshProUGUI>().text = Sub.text;
+            }
+            if(Type == "Mult")
+            {
+                GameObject.Find("HelpText").GetComponent<TMPro.TextMeshProUGUI>().text = Mult.text;
+            }
+            if(Type == "Div")
+            {
+                GameObject.Find("HelpText").GetComponent<TMPro.TextMeshProUGUI>().text = Div.text;
+            }
+            
         }
     }
     // Start is called before the first frame update
