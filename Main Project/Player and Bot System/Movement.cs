@@ -30,6 +30,13 @@ public class Movement : MonoBehaviour
         HeightAboveTrack = new Vector3(0, 6, 0);
         TileList = Board.GetComponent<GetTransformData>().DataArray;
         transform.position = TileList[0].position + HeightAboveTrack;
+        if(gameObject.name == "Bot")
+        {
+            PlusTwoPoints = GameObject.Find("Player").GetComponent<Movement>().PlusTwoPoints;
+            PlusFourPoints = GameObject.Find("Player").GetComponent<Movement>().PlusFourPoints;
+            MinusTwoPoints = GameObject.Find("Player").GetComponent<Movement>().MinusTwoPoints;
+            MinusTwoPoints = GameObject.Find("Player").GetComponent<Movement>().MinusTwoPoints;
+        }
         
     }
 
