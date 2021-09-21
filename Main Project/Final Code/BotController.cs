@@ -64,7 +64,7 @@ public class BotController : MonoBehaviour
         }
     }
     
-    // Generates an addition question for the enemy, decides if it will get it right or not, and manage the display
+    // Decides what kind of question the enemy will get
     public IEnumerator BotQuestion()
     {
         BotAnswerText.text = "";
@@ -198,6 +198,7 @@ public class BotController : MonoBehaviour
         yield return null;
     }
 
+    //Function to generate addition question
     public void BotAdd(int Lower, int Upper, int QuestionLength)
     {
         Terms = new int[QuestionLength];
@@ -219,6 +220,8 @@ public class BotController : MonoBehaviour
         }
         UpperBound = CorrectAnswer + 5;
     }
+    
+    //Function to generate subtraction question
     public void BotSub(int Midpoint)
     {
         Terms = new int[2];
@@ -234,6 +237,8 @@ public class BotController : MonoBehaviour
             }
         }
     }
+    
+    //Function to generate multiplication question
     public void BotMult(int Lower, int Upper, int QuestionLength)
     {
         CorrectAnswer = 1;
@@ -255,6 +260,8 @@ public class BotController : MonoBehaviour
             }
         }
     }
+    
+    //Function to generate division question
     public void BotDiv(int Lower, int Upper)
     {
         int Dividend = 0;
