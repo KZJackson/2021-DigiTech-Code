@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class BackgroundSystem : MonoBehaviour
 {
-    public Shader[] Shaders;
-    public Renderer Renderer;
+    public Shader[] Shaders; //The list of shaders to shuffle around
+    public Renderer Renderer; //The object's renderer component
 
-
+    //The function to shuffle the shaders on the landscape
     public IEnumerator ChangeShader()
     {
         yield return new WaitForSeconds(5);
