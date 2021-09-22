@@ -158,6 +158,8 @@ public class QuestionSystem : MonoBehaviour
         TimerCo = StartCoroutine(Timer(10));
         SubmitAnswer.Type = "Add";
     }
+    
+    //Generate subtraction question and assist in displaying it
     public void GenerateSubtraction(int Midpoint)
     {
         QuestionText.text = "";
@@ -189,6 +191,8 @@ public class QuestionSystem : MonoBehaviour
         SubmitAnswer.Type = "Sub";
         
     }
+    
+    //Generate multiplication question and assist in displaying it
     public void GenerateMultiplication(int Lower, int Upper, int QuestionLength)
     {
         CorrectAnswer = 1;
@@ -225,6 +229,8 @@ public class QuestionSystem : MonoBehaviour
         TimerCo = StartCoroutine(Timer(10));
         SubmitAnswer.Type = "Mult";
     }
+    
+    //Generate division question and assist in displaying it
     public void GenerateDivision(int Lower, int Upper)
     {
         int Dividend = 0;
